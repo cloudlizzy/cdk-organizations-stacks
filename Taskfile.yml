@@ -1,0 +1,45 @@
+version: "3"
+
+tasks:
+  list-stack:
+    desc: List organizations stack
+    dotenv: [ "{{.CLI_ARGS }}" ]
+    cmds:
+      - |
+        npx projen list
+
+  synth-stack:
+    desc: List organizations stack
+    dotenv: [ "{{.CLI_ARGS }}" ]
+    cmds:
+      - |
+        npx projen synth
+
+  diff-stack:
+    desc: Diff organizations stack
+    dotenv: [ "{{.CLI_ARGS }}" ]
+    cmds:
+      - |
+        npx projen diff
+
+  deploy-stack:
+    desc: Deploy organizations stack
+    dotenv: [ "{{.CLI_ARGS }}" ]
+    cmds:
+      - |
+        npx projen deploy
+
+  bootstrap-account:
+    desc: "Bootstrap the project"
+    dotenv: [ "{{.CLI_ARGS }}" ]
+    env:
+      STACK_NAME: CDKToolkitOrganizations
+      STACK_QUALIFIER: orgs
+    cmds:
+      - yarn cdk bootstrap $AWS_ACCOUNT/$AWS_REGION  --toolkit-stack-name $STACK_NAME --qualifier $STACK_QUALIFIER --cloudformation-execution-policies 'arn:aws:iam::aws:policy/AdministratorAccess'
+
+  run-test:
+    desc: "Run test"
+    dotenv: [ "{{.CLI_ARGS }}" ]
+    cmds:
+      - yarn test
